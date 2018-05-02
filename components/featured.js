@@ -34,7 +34,7 @@ export default class Featured extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: 300,
+        height: 400,
     },
 
     slide: {

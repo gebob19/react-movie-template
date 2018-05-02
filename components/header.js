@@ -7,9 +7,10 @@ export default class Header extends Component {
   }
   
   render() {
+    const padding = {paddingTop: this.props.paddingTop};
     return(
       <View style={styles.container}>
-        <Text style={styles.title}>My Movies</Text>
+        <Text style={[styles.title, padding]}>{this.props.title}</Text>
       </View>
     );
   }
@@ -19,7 +20,6 @@ const maxWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     width: maxWidth,
-    paddingTop: 30,
     backgroundColor: '#232323',
   },
   
