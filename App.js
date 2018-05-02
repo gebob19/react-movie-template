@@ -14,6 +14,7 @@ export default class App extends Component {
         <Featured />
         <Header title='All Series' paddingTop={5}/>
         <Series />
+        <Series />
       </ScrollView>
     );
   }

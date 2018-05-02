@@ -24,8 +24,9 @@ export default class Series extends Component {
     series = allSeries[1];
     series.coverSource = require('./../assets/magi.jpeg');
     let series2 = this.getSeries(series, 1);
+    let series3 = this.getSeries(series, 2);
     
-    return [series1, series2];
+    return [series1, series2, series3];
   }
   
   render() {
