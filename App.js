@@ -4,7 +4,6 @@ import { Text, View, StyleSheet } from 'react-native';
 import Header from './components/header';
 import Slideshow from './components/slideshow';
 
-
 export default class App extends Component {
   render() {
     return (
@@ -12,8 +11,12 @@ export default class App extends Component {
         <Header />
         <Slideshow
           dataSource={[
-            {url: './assets/naruto.jpegs'},
-            {url: ''}
+            {url: require('./assets/naruto.jpeg'), 
+              title: 'Naruto',},
+            {url: require('./assets/magi.jpeg'),
+              title: 'Magi: The Labyrinth of Magic'},
+            {url: require('./assets/sevendeadlysins.jpeg'), 
+              title: 'The Seven Deadly Sins'}
           ]}/>
       </View>
     );

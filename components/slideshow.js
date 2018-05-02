@@ -31,12 +31,11 @@ const styles = StyleSheet.create({
   },
   layoutIndicator: {
     height: 15,
-    position: 'absolute',
-    bottom: 5,
+    bottom: 180,
     left: 0,
     right: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     backgroundColor: 'transparent',
   },
@@ -58,17 +57,19 @@ const styles = StyleSheet.create({
   layoutText: {
     position: 'absolute',
     paddingHorizontal: 15,
-    bottom: 30,
+    paddingTop: 10,
+    bottom: 0,
     left: 0,
     right: 0,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flexDirection: 'column',
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(26,26,26,0.6)',
   },
   textTitle: {
+    paddingBottom: 5,
     fontWeight: 'bold',
-    fontSize: 15, 
+    fontSize: 20, 
     color: 'white',
   },
   textCaption: {
@@ -198,7 +199,7 @@ export default class Slideshow extends Component {
             { height: height }
           ]}>
           {this.props.dataSource.map((image, index) => {
-            const imageObject = typeof image.url === 'string' ? {uri: image.url} : image.url;
+            const imageObject = image.url;
             const textComponent = (
               <View style={styles.layoutText}>
                 {image.title === undefined ? null : <Text style={styles.textTitle}>{image.title}</Text>}
@@ -208,7 +209,7 @@ export default class Slideshow extends Component {
             const imageComponent = (
               <View key={index}>
                 <Image
-                  source={require(imageObject.uri)}
+                  source={imageObject}
                   style={{height, width}}/>
                 {textComponent}
               </View>
@@ -319,7 +320,7 @@ Slideshow.defaultProps = {
   indicatorColor: '#CCCCCC',
   indicatorSelectedColor: '#FFFFFF',
   scrollEnabled: true,
-  arrowSize: 16,
+  arrowSize: 20,
 }
 
 Slideshow.propTypes = {
@@ -370,10 +371,9 @@ const layoutArrow = function (imageHeight, iconHeight) {
 
 const iconArrow = function (iconHeight) {
   return {
-     width: 0,
+     width: 20,
      height: 0,
-     margin: 5,
-     backgroundColor: 'transparent',
+     margin: 0,
      borderStyle: 'solid',
      borderTopColor: 'transparent',
      borderBottomColor: 'transparent',
@@ -387,7 +387,7 @@ const iconArrowRight = function (iconHeight) {
      borderRightWidth: 0,
      borderLeftWidth: iconHeight*75/100,
      borderRightColor: 'transparent',
-     borderLeftColor: 'white',
+     borderLeftColor: 'rgba(147, 147, 147, 0.9)',
   };
 }
 
@@ -395,7 +395,7 @@ const iconArrowLeft = function (iconHeight) {
   return {
      borderRightWidth: iconHeight*75/100,
      borderLeftWidth: 0,
-     borderRightColor: 'white',
+     borderRightColor: 'rgba(147, 147, 147, 0.9)',
      borderLeftColor: 'transparent',
   };
 }

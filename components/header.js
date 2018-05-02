@@ -9,7 +9,7 @@ export default class Header extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <Text style={styles.title}>Hello 2</Text>
+        <Text style={styles.title}>9Anime</Text>
       </View>
     );
   }
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   container: {
     width: maxWidth,
     paddingTop: 30,
-    marginBottom: 25,
     backgroundColor: '#232323',
   },
   
