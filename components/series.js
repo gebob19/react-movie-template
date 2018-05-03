@@ -1,14 +1,28 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image } from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 export default class Series extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleSeriesPress = this.handleSeriesPress.bind(this);
+  }
+
+  handleSeriesPress(e, title) {
+    this.props.navigation.navigate('Series', {
+      seriesTitle: title,
+    });
+  }
   
   getSeries(series, i) {
     return (
-      <View style={styles.seriesContainer} key={i}>
+      <TouchableOpacity 
+        style={styles.seriesContainer} 
+        key={i}
+        onPress={(e) => this.handleSeriesPress(e, series.title)}>
         <Image style={styles.series} source={series.coverSource} />
         <Text style={styles.seriesText}>{series.title}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
   
@@ -58,6 +72,4 @@ const styles = StyleSheet.create({
   seriesText: {
     fontSize: 25,
   }
-  
-  
 });
