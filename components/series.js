@@ -71,5 +71,6 @@ const styles = StyleSheet.create({
   
   seriesText: {
     fontSize: 25,
+    color: 'white',
   }
 });

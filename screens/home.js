@@ -13,13 +13,10 @@ export default class HomeScreen extends Component {
   
   render() {
     return (
-    <ScrollView>
-        <Header title='Featured' 
-            paddingTop={5}/>
+    <ScrollView style={{backgroundColor: '#343434', flex: 1}}>
+        <Header title='Featured'/>
         <Featured />
-        <Header 
-            title='All Series' 
-            paddingTop={5}/>
+        <Header title='All Series'/>
         <Series navigation={this.props.navigation}/>
         <Series navigation={this.props.navigation}/>
     </ScrollView>
