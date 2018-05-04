@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, Dimensions, StyleSheet, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import {
+  Text,
+  View,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  StatusBar,
+  Image } from 'react-native';
 
 import { Video } from 'expo';
 import VideoPlayer from './../components/videoplayer';
@@ -85,7 +93,11 @@ export default class SeriesScreen extends Component {
   render() {
     return (
       <View style={{backgroundColor: '#343434', flex: 1}}>
-        {this.state.isLoading && <Text>Loading...</Text>}
+        {this.state.isLoading && 
+          <Image 
+          style={{flex: 1}}
+          source={require('../assets/loading.gif')}/>}      
+
         {this.state.isLoading || 
           <View style={{flex: 1}}>
           <VideoPlayer
@@ -99,7 +111,8 @@ export default class SeriesScreen extends Component {
             showControlsOnLoad={true}
             playFromPositionMillis={0}
             />
-        <Header title={this.state.title} subTitle={'Currently Watching: \'' + this.state.activeEpisode+'\''}/>
+        <Header title={this.state.title} 
+          subTitle={'Currently Watching: \'' + this.state.activeEpisode+'\''}/>
         <ScrollView style={styles.allEpisodesContainer}>
           {this.getEpisodes()}
         </ScrollView>

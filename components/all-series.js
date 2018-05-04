@@ -47,17 +47,26 @@ export default class Series extends Component {
   
   getAllSeries() {
     var allSeries = this.state.series;
+        
     var seriesComponents = [];
 
     for (var i=0; i < allSeries.length; i++) {
       var curr = allSeries[i];
-      curr.coverSource = i==0 ? require('./../assets/naruto.jpeg') :
-        require('../assets/swordartonline.jpg');
+      curr.coverSource = this.getAsset(curr.coverArt);
       var component = this.getSeries(curr, i);
       seriesComponents.push(component);
     }
 
     return seriesComponents;
+  }
+
+  // https://github.com/facebook/react-native/issues/6391
+  getAsset(asset) {
+    switch(asset) {
+      case 'naruto': return require('../assets/naruto.jpeg');
+      case 'magi': return require('../assets/magi.jpeg');
+      case 'swordartonline': return require('../assets/swordartonline.jpg');
+    }
   }
 
   getSeries(series, i) {
@@ -74,7 +83,10 @@ export default class Series extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.isLoading && <Text>Loading...</Text>}
+        {this.state.isLoading && 
+        <Image 
+        style={{flex: 1}}
+        source={require('../assets/loading.gif')}/>}
         {this.state.isLoading || this.getAllSeries()}
       </View>
     )
