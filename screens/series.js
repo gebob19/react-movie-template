@@ -14,80 +14,96 @@ export default class SeriesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTitle: 'Enter: Naruto Uzumaki!',
-      activeUrl: 'https://www1234.playercdn.net/86/2/UQGgA7i9EEGOthHDs1BKRQ/1525485137/180219/195FOLLV83DFQSSM51KUT.mp4', 
-      autoPlay: false,
+      isLoading: true,
+      autoPlay: true,
     }
     this.episodeClick = this.episodeClick.bind(this);
   }
 
   componentDidMount() {
     StatusBar.setHidden(true);
+    
+    const { params } = this.props.navigation.state;
+    const firebaseServices = params.firebaseServices;
+    const refID = params.refID;
+    const seriesTitle = params.seriesTitle;
+
+    var db = firebaseServices.set();
+    db.collection('seriesLinks').doc(refID).get()
+      .then(doc => {
+        var data = doc.data();
+        this.setState({
+          isLoading: false,
+          title: seriesTitle,
+          links: data.links,
+          names: data.names,
+          activeURL: data.links[0],
+          activeEpisode: data.names[0]
+        })
+      });
   }
 
-  episodeClick(e, title) {
-    var newUrl = 'https://www2381.playercdn.net/86/0/vF8_OpuhS8zlOoyt9gNURQ/1525536522/180219/203FOLM6NU23ZGTYUI865.mp4';
+  episodeClick(e, title, link) {
     this.setState({
-      activeUrl: newUrl,
-      activeTitle: title,
-      autoPlay: true,
+      activeEpisode: title,
+      activeURL: link,
     });
   }
 
-  getEpisodeElement(episode, key) {
-    const title = episode.title;
+  getEpisodeComponent(episode, key) {
     return (
       <TouchableOpacity 
         style={styles.episodeContainer} 
         key={key}
-        onPress={(event) => this.episodeClick(event, title)}>
-        <Text style={[styles.episodeText, episode.watched && styles.episodeWasWatched]}>{key}: {title} </Text>
+        onLongPress={(event) => 
+          this.episodeClick(event, episode.name, episode.link)}>
+        <Text style={[styles.episodeText, episode.watched && 
+          styles.episodeWasWatched]}>{key}: {episode.name} </Text>
       </TouchableOpacity>
     );
   }
 
   getEpisodes() {
-    var episodes = {
-      1: {
-        title : 'Enter: Naruto Uzumaki!',
-        watched : true,
-      },
-      2 : {
-        title: 'My Name is Konohamaru!',
+    var links = this.state.links;
+    var names = this.state.names;
+
+    var episodeComponents = [];
+
+    for (var i=0; i < links.length; i++) {
+      var episode ={
+        name : names[i],
+        link : links[i],
         watched : false,
       }
-    };
-    
-    var output = []
-    for (var key in episodes) {
-      var episode = episodes[key];
-      output.push(this.getEpisodeElement(episode, key));
+      var component = this.getEpisodeComponent(episode, i+1);
+      episodeComponents.push(component);
     }
     
-    return (output);
+    return episodeComponents;
   }
   
   render() {
-    const { params } = this.props.navigation.state;
-    const title = params ? params.seriesTitle : null;
-    const url = this.state.activeUrl;
     return (
       <View style={{backgroundColor: '#343434', flex: 1}}>
-        <VideoPlayer
+        {this.state.isLoading && <Text>Loading...</Text>}
+        {this.state.isLoading || 
+          <View style={{flex: 1}}>
+          <VideoPlayer
             videoProps={{
                 shouldPlay: true,
                 resizeMode: Video.RESIZE_MODE_CONTAIN,
                 source: { 
-                uri: url 
+                uri: this.state.activeURL 
                 },
             }}
             showControlsOnLoad={true}
             playFromPositionMillis={0}
             />
-        <Header title={title} subTitle={'Currently Watching: \'' + this.state.activeTitle+'\''}/>
+        <Header title={this.state.title} subTitle={'Currently Watching: \'' + this.state.activeEpisode+'\''}/>
         <ScrollView style={styles.allEpisodesContainer}>
           {this.getEpisodes()}
         </ScrollView>
+        </View>}
       </View>
     );
   }
@@ -97,6 +113,7 @@ export default class SeriesScreen extends Component {
 const styles = StyleSheet.create({
   allEpisodesContainer: {
     margin: 10,
+    flex: 1,
   },
   
   episodeText: {

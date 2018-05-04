@@ -10,6 +10,8 @@ const featured = {
 };
 
 export default class Featured extends Component {
+    //TODO: Implement firebase calls on mount
+    
     render() {
         return (
         <View style={styles.container}>

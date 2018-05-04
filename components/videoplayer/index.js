@@ -671,7 +671,8 @@ export default class VideoPlayer extends React.Component {
     );
 
     return (
-      <TouchableWithoutFeedback onPress={this._toggleControls.bind(this)}>
+      <TouchableWithoutFeedback 
+      onPress={this._toggleControls.bind(this)}>
         <View
           style={{
             backgroundColor: 'black',

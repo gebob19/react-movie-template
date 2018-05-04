@@ -20,7 +20,7 @@ const maxWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     width: maxWidth,
-    padding: 15,
+    padding: 10,
     backgroundColor: '#232323',
     alignItems: 'center',
   },
