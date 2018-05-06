@@ -10,5 +10,10 @@ Firebase cloud storage (cloud firestore) with the following structure,
   * seriesLinks (each document will contain 2 lists called 'links', and 'names' to contain all video links, and names of each episode)
 * Every series must have a document in each collection, with its documentID being the same in both collections.
 
+## TODO
+* add your firebase details to /config/firebase.js
+* add your cover photos to /assets
+* change whatever you would like, and personalize your template!
+
 ## Developer Mode
 `npm start`
