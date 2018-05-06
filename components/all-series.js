@@ -61,11 +61,11 @@ export default class Series extends Component {
   }
 
   // https://github.com/facebook/react-native/issues/6391
+  // link the firebase field 'coverArt' to a photo in /assets
+  // TODO
   getAsset(asset) {
     switch(asset) {
-      case 'naruto': return require('../assets/naruto.jpeg');
-      case 'magi': return require('../assets/magi.jpeg');
-      case 'swordartonline': return require('../assets/swordartonline.jpg');
+      case '{coverArt Field}': return require('../assets/{image here}');
     }
   }
 
