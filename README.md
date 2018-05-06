@@ -13,6 +13,7 @@ Firebase cloud storage (cloud firestore) with the following structure,
 ## TODO
 * add your firebase details to /config/firebase.js
 * add your cover photos to /assets
+* add and re-name your loading gif to /assets/loading.gif
 * change whatever you would like, and personalize your template!
 
 ## Developer Mode
